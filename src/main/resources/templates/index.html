@@ -1,0 +1,51 @@
+    <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatos TSE</title>
+     <link rel="stylesheet" th:href="@{/css/style.css}"> 
+    <meta name="description" content="Consulta de candidatos do TSE">
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+
+    <div id="Candidatos-container">
+        <div id="Candidatos-Form">
+            <form method="get" th:action="@{/}" class="filtros">
+                <input type="search" name="texto" placeholder="Nome, número ou nome de urna"
+                       th:value="${textoSelecionado}">
+                <select name="cargo">
+                    <option value="" th:selected="${cargoSelecionado == ''}">Todos os cargos</option>
+                    <option th:each="c : ${cargos}"
+                            th:value="${c}"
+                            th:text="${c}"
+                            th:selected="${c == cargoSelecionado}">
+                    </option>
+                </select>
+                <select name="partido">
+                    <option value="" th:selected="${partidoSelecionado == ''}">Todos os partidos</option>
+                    <option th:each="p : ${partidos}"
+                            th:value="${p}"
+                            th:text="${p}"
+                            th:selected="${p == partidoSelecionado}">
+                    </option>
+                </select>
+                <button type="submit">Filtrar</button>
+                <a th:href="@{/}" class="limpar">Limpar</a>
+            </form>
+
+            <p th:if="${#lists.isEmpty(candidatos)}">Nenhum candidato encontrado.</p>
+
+            <div class="grade-candidatos" th:each="cand : ${candidatos}">
+                 <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}" th:alt="${cand.nomeUrna}" class="foto-candidato">
+                 <h4 th:text="${cand.nomeUrna}"></h4>
+                 <h4 th:text="${cand.nrCandidato}"></h4>
+                 <h4 th:text="${cand.cargo}"></h4>
+                 <h4 th:text="${cand.siglaPartido}"></h4>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
