@@ -34,14 +34,29 @@
                 <a th:href="@{/}" class="limpar">Limpar</a>
             </form>
 
+                <p th:if="${!#lists.isEmpty(candidatos)}"
+                    th:text="${#lists.size(candidatos) + ' candidato(s) encontrado(s).'}"></p>
             <p th:if="${#lists.isEmpty(candidatos)}">Nenhum candidato encontrado.</p>
 
-            <div class="grade-candidatos" th:each="cand : ${candidatos}">
-                 <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}" th:alt="${cand.nomeUrna}" class="foto-candidato">
-                 <h4 th:text="${cand.nomeUrna}"></h4>
-                 <h4 th:text="${cand.nrCandidato}"></h4>
-                 <h4 th:text="${cand.cargo}"></h4>
-                 <h4 th:text="${cand.siglaPartido}"></h4>
+                <div class="grade-candidatos" th:if="${!#lists.isEmpty(candidatos)}">
+                     <article class="card-candidato" th:each="cand : ${candidatos}">
+                          <div th:if="${cand.fotoDisponivel}">
+                                <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}"
+                                      th:alt="${cand.nomeUrna}" class="foto-candidato">
+                          </div>
+                          <div class="foto-ausente" th:unless="${cand.fotoDisponivel}">Sem foto</div>
+                          <h3 th:text="${cand.nomeUrna}"></h3>
+                          <p><strong>Número:</strong> <span th:text="${cand.nrCandidato}"></span></p>
+                          <p th:text="${cand.cargo}"></p>
+                          <p th:text="${cand.siglaPartido + ' - ' + cand.nomePartido}"></p>
+                          <p th:text="${cand.municipio}"></p>
+                          <p th:if="${cand.idade >= 0}" th:text="${cand.idade + ' anos'}"></p>
+                          <p th:if="${cand.ocupacao != null and !cand.ocupacao.isBlank()}"
+                              th:text="${cand.ocupacao}"></p>
+                          <p th:if="${cand.grauInstrucao != null and !cand.grauInstrucao.isBlank()}"
+                              th:text="${cand.grauInstrucao}"></p>
+                          <p class="nome-civil" th:text="${cand.nomeCandidato}"></p>
+                     </article>
             </div>
         </div>
     </div>

@@ -115,6 +115,9 @@ public class CandidatosTseService {
         // Senador, onde titular e suplentes são registros separados no TSE.
         resolverFotosPorCpf(lista);
 
+        lista.forEach(c -> c.setFotoDisponivel(fotoExisteNoDisco(
+            c.getSqCandidatoParaFoto() == null ? c.getSqCandidato() : c.getSqCandidatoParaFoto())));
+
         // ordena por nome de urna, só para ficar mais agradável na tela
         lista.sort(Comparator.comparing(Candidato::getNomeUrna, Comparator.nullsLast(String::compareTo)));
 

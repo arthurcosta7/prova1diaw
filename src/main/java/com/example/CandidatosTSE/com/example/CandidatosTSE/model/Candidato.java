@@ -34,6 +34,7 @@ public class Candidato {
      * para a foto dela. Ver CandidatosTseService.resolverFotosPorCpf().
      */
     private String sqCandidatoParaFoto;
+    private boolean fotoDisponivel;
 
     public Candidato() {
     }
@@ -160,6 +161,18 @@ public class Candidato {
 
     public void setSqCandidatoParaFoto(String sqCandidatoParaFoto) {
         this.sqCandidatoParaFoto = sqCandidatoParaFoto;
+    }
+
+    public String getSqCandidatoParaFoto() {
+        return sqCandidatoParaFoto;
+    }
+
+    public boolean isFotoDisponivel() {
+        return fotoDisponivel;
+    }
+
+    public void setFotoDisponivel(boolean fotoDisponivel) {
+        this.fotoDisponivel = fotoDisponivel;
     }
 
     /**
